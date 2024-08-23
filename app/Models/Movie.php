@@ -20,8 +20,8 @@ class Movie extends Model
        {
            return $this->hasMany(Rating::class);
        }
-       public function scopeByGener($query,$gener) {
-        return $query->where('gener', $gener);
+       public function scopeByGenre($query,$genre) {
+        return $query->where('genre', $genre);
      }
      public function scopeByDirector($query,$director) {
          return $query->where('director', $director);

@@ -19,26 +19,28 @@ class MovieController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Movie::query();
+        if ($request->has('genre')) {
+            $genre = $request->input('genre');
+           $movies= Movie::ByGenre($genre)->get();
+           return response()->json($movies,200);
 
-        if ($request->has('gener')) {
-            $gener = $request->input('gener');
-           $movies= Movie::ByGener($gener)->get();
         }
         elseif ($request->has('director')) {
             $director = $request->input('director');
             $movies= Movie::ByDirector($director)->get();
+            return response()->json($movies,200);
+
         }
         elseif ($request->has('sort_by')) {
             
                 $sort_by = $request->input('sort_by');
              $movies =Movie::byReleaseYear($sort_by)->get();
+             return response()->json($movies,200);
+
         }
         else
         try{
-           // $movies = Movie::all();
-           $perPage = $request->input('per_page', 15); 
-           $movies = $query->paginate($perPage);     
+           $movies = Movie::all()->toQuery()->paginate(10);  
             return response()->json($movies,200);
     }
     catch (Exception $e) {  
@@ -57,7 +59,7 @@ class MovieController extends Controller
             "director"=> "required|string|max:255",
             "genre"=>"required|string|max:255",
             "release_year"=> "required|integer",
-            "description"=> "string|max:255",]);
+            "description"=> "required|string|max:255",]);
       } 
       catch (Exception $e)
     {
@@ -65,10 +67,10 @@ class MovieController extends Controller
        
     }
 
-         try{
+        try{
            $movie = $this->movieservice->createMovie($validateddata);
             return response()->json($movie,201);
-         } 
+        } 
          catch(Exception $e) 
          {
             return response()->json(["message"=> "internal server error"],500);
@@ -105,7 +107,7 @@ class MovieController extends Controller
                 "director"=> "required|string|max:255",
                 "genre"=>"required|string|max:255",
                 "release_year"=> "required|integer",
-                "description"=> "nullable|string|max:255",]);
+                "description"=> "required|string|max:255",]);
           } 
           catch (Exception $e)
         {
