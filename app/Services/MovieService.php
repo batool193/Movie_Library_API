@@ -8,11 +8,12 @@ class MovieService {
     public function createMovie(array $data) {
         return Movie::create($data);
     }
-    public function updateMovie(array $data ,$id ) {
-       return Movie::find($id)->updated($data); 
+    public function updateMovie(array $data ,$movie ) {
+     
+       return  $movie->update($data);
     }
-    public function deleteMovie($id) {
-        return Movie::find($id)->delete();
+    public function deleteMovie($movie) {
+        return $movie->delete();
     }
   
   

@@ -116,7 +116,7 @@ class MovieController extends Controller
         }
             try{
                 $movie= Movie::findOrFail($id);
-            $movie = $this->movieservice->updateMovie($validateddata, $id);
+            $movie = $this->movieservice->updateMovie($validateddata, $movie);
             return response()->json($movie,201);
         }
         catch (ModelNotFoundException $e) {
@@ -135,7 +135,7 @@ class MovieController extends Controller
     {
         try{
             $movie= Movie::findOrFail($id);
-        $movie = $this->movieservice->deleteMovie($id);
+        $movie = $this->movieservice->deleteMovie($movie);
         return response()->json($movie,204);}
         catch (ModelNotFoundException $e)
         {
