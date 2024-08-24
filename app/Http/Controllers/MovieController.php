@@ -17,36 +17,35 @@ class MovieController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+
+
+     public function index(Request $request)
     {
+        try {
+        $movies = Movie::all()->toQuery();
+
         if ($request->has('genre')) {
-            $genre = $request->input('genre');
-           $movies= Movie::ByGenre($genre)->get();
-           return response()->json($movies,200);
-
+            $movies->ByGenre($request->genre);
         }
-        elseif ($request->has('director')) {
-            $director = $request->input('director');
-            $movies= Movie::ByDirector($director)->get();
-            return response()->json($movies,200);
 
+        if ($request->has('director')) {
+            $movies->ByDirector($request->director);
         }
-        elseif ($request->has('sort_by')) {
-            
-                $sort_by = $request->input('sort_by');
-             $movies =Movie::byReleaseYear($sort_by)->get();
-             return response()->json($movies,200);
 
+        if ($request->has('sort_by')) {
+           if($request->sort_by == 'desc')
+            $order = 'desc';
+            else 
+            $order = 'asc';
+            $movies->ByReleaseYear($order);
         }
-        else
-        try{
-           $movies = Movie::all()->toQuery()->paginate(10);  
-            return response()->json($movies,200);
+        return response()->json($movies->paginate(10),200);
     }
-    catch (Exception $e) {  
-        return response()->json(["message"=> "internal server error"],500);
-       }
+        catch (Exception $e) {  
+            return response()->json(["message"=> "internal server error"],500);
+           }
     }
+    
 
     /**
      * Store a newly created resource in storage.
@@ -84,7 +83,7 @@ class MovieController extends Controller
     public function show($id)
     {
         try{
-            $movie= Movie::findOrFail($id);
+            $movie= Movie::with('ratings')->findOrFail($id);
             return response()->json($movie,200);
         }
         catch (ModelNotFoundException $e) {
