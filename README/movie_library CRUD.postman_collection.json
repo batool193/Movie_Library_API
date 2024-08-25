@@ -1,0 +1,275 @@
+{
+	"info": {
+		"_postman_id": "7cef9bb2-4d01-469e-a189-8f5f3300dd77",
+		"name": "movie_library CRUD",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27922320"
+	},
+	"item": [
+		{
+			"name": "store",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "title",
+							"value": "title2",
+							"type": "text"
+						},
+						{
+							"key": "director",
+							"value": "director",
+							"type": "text"
+						},
+						{
+							"key": "genre",
+							"value": "genre",
+							"type": "text"
+						},
+						{
+							"key": "release_year",
+							"value": "1992",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "mmm",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/movies",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"movies"
+					]
+				},
+				"description": "store"
+			},
+			"response": []
+		},
+		{
+			"name": "index",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/movies/?sort_by=desc",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"movies",
+						""
+					],
+					"query": [
+						{
+							"key": "genre",
+							"value": "genre",
+							"disabled": true
+						},
+						{
+							"key": "director",
+							"value": "d",
+							"disabled": true
+						},
+						{
+							"key": "sort_by",
+							"value": "desc"
+						}
+					]
+				},
+				"description": "index"
+			},
+			"response": []
+		},
+		{
+			"name": "show",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/movies/:id",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"movies",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				},
+				"description": "show"
+			},
+			"response": []
+		},
+		{
+			"name": "delete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/movies/:id",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"movies",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "2"
+						}
+					]
+				},
+				"description": "delete"
+			},
+			"response": []
+		},
+		{
+			"name": "update",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "title",
+							"value": "title1",
+							"type": "text"
+						},
+						{
+							"key": "director",
+							"value": "director",
+							"type": "text"
+						},
+						{
+							"key": "genre",
+							"value": "genre",
+							"type": "text"
+						},
+						{
+							"key": "release_year",
+							"value": "1993",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "discription",
+							"type": "text"
+						},
+						{
+							"key": "_method",
+							"value": "PUT",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/movies/:id",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"movies",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "store rating",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "user_id",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "movie_id",
+							"value": "3",
+							"type": "text"
+						},
+						{
+							"key": "rating",
+							"value": "4",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/rating",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"rating"
+					],
+					"query": [
+						{
+							"key": "movie_id",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "http://127.0.0.1:8000/api",
+			"type": "string"
+		}
+	]
+}
