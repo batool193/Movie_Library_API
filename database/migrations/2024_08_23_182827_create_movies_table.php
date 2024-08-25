@@ -6,19 +6,22 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
+     /**
+     * Run the migrations
+     *
+     * This method is called when the migration is executed
+     * It creates the 'movies' table with the specified columns
      */
     public function up(): void
     {
         Schema::create('movies', function (Blueprint $table) {
-            $table->id();
-            $table->string('title');
-            $table->string('director');
-            $table->string('genre');
-            $table->integer('release_year');
-            $table->string('description');
-           $table->timestamps();
+            $table->id(); // Primary key
+            $table->string('title'); // Movie title
+            $table->string('director'); // Director's name
+            $table->string('genre'); // Genre of the movie
+            $table->integer('release_year'); // Year of release
+            $table->string('description'); // Description of the movie
+            $table->timestamps(); // Timestamps for created_at and updated_at
         });
     }
 
